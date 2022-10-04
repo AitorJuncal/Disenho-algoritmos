@@ -8,23 +8,18 @@
 ;car(cons(1 2)) -> car(lambda z(z 1 2)) -> (lambda z(z 1 2)H) -> (H 1 2) -> 1.
 
 ;EJERCICIO 2: Escriba el código para cos-int, car-int y cdr-int, de forma que se utilice esta representación.
-(define (expt b n)
-  (if (= n 0)
-      1
-      (* b (expt b (- n 1)))))
-
 (define (cos-int a b)
   (* (expt 2 a) (expt 3 b)))
 
-(define (car-int c)
-  (if (not (= (remainder c 2) 0))
-      0
-      (+ 1 (car-int (/ c 2)))))
+(define (car-int resultado)
+  (cond ((= (remainder resultado 2) 0) (+ 1 (car-int (/ resultado 2))))
+        (else 0)))
 
-(define (cdr-int c)
-  (if (not (= (remainder c 3) 0))
-      0
-      (+ 1 (cdr-int (/ c 3)))))
+(define (cdr-int resultado)
+  (cond ((= (remainder resultado 3) 0) (+ 1 (cdr-int (/ resultado 3))))
+        (else 0)))
+
+
 
 ;EJERCICIO 3: Defina 1 y 2 como funciones y defina la suma directamente como la composición de los dos elementos.
 (define zero (lambda (f) (lambda (x) x)))
