@@ -10,6 +10,34 @@
         (else (fast-expt-iter (- n 1) b (* acumulado b)))))
 
 
+;Ejercicio 3. Rellene el código de forma que se elimine la recursión lineal.
+(define (sum term a next b)
+  (define (iter a result)
+   (if (> a b)
+       result
+       (iter (next a) (+ result (term a)))))
+  (iter a 0))
+
+(define (inc n) (+ n 1))
+(sum identity 1 inc 10)
+
+
+;Ejercicio 4.Escriba dos versiones del procedimiento producto, una que genere un proceso recursivo y otra un proceso
+;iterativo. Calcule la eficiencia en memoria y en número de operaciones.
+(define (product term a next b)
+  (if (> a b)
+   1
+  (* (term a)
+     (product term (next a) next b))))
+
+(define (product-iter term a next b)
+  (define (iter a result)
+   (if (> a b)
+       result
+       (iter (next a) (* result (term a)))))
+  (iter a 1))
+
+;Ejercicio 5. Escriba dos programas en Scheme, uno que genere un proceso recursivo y otro iterativo. Demuestre que
 
 ;Ejercicio 6. Explique el error que se genera con una evaluación.
 (define x 5)
@@ -42,6 +70,6 @@ x)
 ;Por lo que simplemente el interprete tiene que evaluar la función lambda con un 2 como argumento, dando como resultado (2+1) * 3 = 6
 
 ;tercer caso: (ff)
-(f f)
+;(f f)
 ;El interprete nos dice. "application: not a procedure expected a procedure that can be applied to arguments". Esto es por que estamos pasando la propia función f
 ;como parámetro a la función f. Por lo que lógicamente el interprete no puede evaluar correctamente el procedimiento.
