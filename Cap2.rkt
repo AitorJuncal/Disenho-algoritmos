@@ -8,16 +8,20 @@
   (cond ((= n 0) 1)
         ((= n 1) acumulado)
         (else (fast-expt-iter (- n 1) b (* acumulado b)))))
+"Ejercicio 1: b^n"
+(fast-expt 2 3)
 
 ;Ejercicio 2. Programe un algoritmo similar a fast-expt con un número de pasos logaritmico.;
-(define (fast-expt-log n b)
-  (cond ((= n 0) 1)
-        (= (remainder b 2) 0)
-        (sqrt n 2)
-        (/ b 2)
-  (else (- b 1)))
- (fast-expt-log n b))
+(define (square x)
+  (* x x))
+(define (fast-exp-log b n acumulado)
+  (cond ((= n 0) acumulado)
+        ((= (remainder n 2) 0)
+            (fast-exp-log (* b b) (/ n 2) acumulado))
+  (else (fast-exp-log b (- n 1) (* acumulado b)))))
 ;Si b es impar hay que dividirlo en n^b-1 * n
+"Ejercicio 2: b^n"
+(fast-exp-log 2 9 1)
   
 
 ;Ejercicio 3. Rellene el código de forma que se elimine la recursión lineal.
@@ -29,8 +33,9 @@
   (iter a 0))
 
 (define (inc n) (+ n 1))
-(sum identity 1 inc 10)
 
+"Ejercicio 3"
+(sum identity 1 inc 10)
 
 ;Ejercicio 4.Escriba dos versiones del procedimiento producto, una que genere un proceso recursivo y otra un proceso
 ;iterativo. Calcule la eficiencia en memoria y en número de operaciones.
@@ -47,7 +52,8 @@
        (iter (next a) (* result (term a)))))
   (iter a 1))
 
-;Ejercicio 5. Escriba dos programas en Scheme, uno que genere un proceso recursivo y otro iterativo. Demuestre que
+
+;Ejercicio 5. Escriba dos programas en Scheme, uno que genere un proceso recursivo y otro iterativo. Demuestre que este procedimiento abstrae los procesos suma y producto.
 (define (accumulate combiner null-value term a next b)
   (if (> a b)
       null-value
@@ -66,8 +72,11 @@
 "Ejercicio 5 iterativo"
 (accumulate_i cons null identity 2 inc 2)
 
+;Esta función toma como argumentos los mismas que la suma y el producto.
+;Por lo que con un funcion combiner (de dos argumentos) se combinará el término actual con la acumulación de los términos anteriores y un valor base con el que empezar
 
 ;Ejercicio 6. Explique el error que se genera con una evaluación.
+"Ejercicio 6"
 (define x 5)
 (+ (let ((x 3))
 (+ x (* x 10)))
@@ -82,12 +91,12 @@ x)
 
 
 ;Ejercicio 7. Explique que occure con las siguientes evaluaciónes: (f square), (f (lambda (z) (* z (+ z 1)))) y (f f)
+"Ejercicio 7"
 (define (f g) (g 2))
 ;En esta definición. Definimos una función f que toma otra función como parámetro, la función g. Luego aplica la funcion g con el parámetro 2. O dicho de otra forma,
 ;evalua la función g con un 2 como argumento.
 
 ;Primer caso : (f square)
-(define (square x) (* x x))
 (f square)
 ;la función f evalua correctamente su argumento, que es a su vez otra función(square), por lo que se realiza con exito el square de 2, es decir, la expresión
 ;(f square) devuelve 4.
