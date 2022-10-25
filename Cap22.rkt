@@ -1,4 +1,5 @@
 #lang racket
+;Ejercicio 1: Matriz con los numeros combinatorios.
 (define (new-row-temp anterior)
   (if (null? (cdr anterior))
       (list (car anterior))
