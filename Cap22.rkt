@@ -26,10 +26,6 @@
 
 ;Para sacar el grado de entrada, hay que transponer la matriz y aplicar el mismo metodo grado-salida.
 
-;EJ 3: universal sink.
-(define (universal-sink m)
-  (if (= (car lista) 1)
-      (universal-sink
 
 ;EJ 4: topological sort
 (require "graph.rkt")
