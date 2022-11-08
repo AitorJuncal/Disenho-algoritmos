@@ -31,9 +31,12 @@
 
 (define (add-entry key value record)
   (accumulate
-   (lambda (f g) (cons ((selector key value) f) g))
-   null
-   record))
+   (lambda (primer_elemento acumulado_resto)
+     (if (test? key primer_elemento)
+         acumulado_resto
+         (cons (list key value) (cons primer_elemento (cdr acumulado_resto)))))
+     (list (list key value))
+     record))
 
 (define (substitute a b l1)
   (if (null? l1)
