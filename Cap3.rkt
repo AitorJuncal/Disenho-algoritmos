@@ -8,13 +8,16 @@
 (define A (make-accumulator 5))
 
 ;Ejercicio 2
-(define (make-monitored proc) 
-   (let ((count 0)) 
-     (lambda (first . rest) 
-       (cond ((eq? first 'how-many-calls?) count) 
-             ((eq? first 'reset-count) (set! count 0)) 
-             (else (begin (set! count (+ count 1))  
-                          (apply proc (cons first rest))))))))
+(define (make-monitored funcion)
+  (let ((llamadas 0))
+    (define (dispatch m)
+      (cond 
+        ((eq? m 'how-many-calls?) llamadas)
+        ((eq? m 'reset-count) (set! llamadas 0))
+        (else
+          (set! llamadas (+ 1 llamadas))
+          (funcion m))))
+    dispatch))
 
 (define s (make-monitored sqrt))
 (s 100)
