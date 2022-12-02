@@ -14,29 +14,14 @@
 ;env -> {'x' : 10} --> {'n' :10'}
 ;(set! n (+ n x)) --> (set! 'n' (+ 10 10))
 
-;Ejercicio 2
-(define (append x y)
- (if (null? x)
-    y
-    (mcons (mcar x) (append (mcdr x) y))))
+;Ejercicio 3
+(define (count-pairs x)
+ (if (not (mpair? x))
+ 0
+ (+ (count-pairs (mcar x))
+ (count-pairs (mcdr x))
+ 1)))
 
-(define (append! x y)
-    (set-mcdr! (last-pair x) y)
-       x)
 
-(define (last-pair x)
-  (if (null? (mcdr x))
-    x
-   (last-pair (mcdr x))))
-
-(define x (mcons 'a (mcons 'b null)))
-(define y (mcons 'c (mcons 'd null)))
-(define z (append x y))
-z
-(mcons 'a (mcons 'b (mcons 'c (mcons 'd '()))))
-(cdr x)
-(define w (append! x y))
-w
-(mcons 'a (mcons 'b (mcons 'c (mcons 'd '()))))
-(cdr x)
-
+(define pares (mcons 1 (mcons 2 (mcons 3 ()))))
+(count-pairs pares)

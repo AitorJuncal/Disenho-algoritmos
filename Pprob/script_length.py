@@ -116,21 +116,46 @@ def count_intersection(y,T,r,theta):
         pos += 1
     return total
 
-T = 0  # Distancia entre rectas
+T = 1  # Distancia entre rectas
 r = 0.09 # posicion inicial (tiene que estar entre 0 y T)
 theta = 0.85 # Angulo
 simulations = []
 distancias = []
-for i in range(100):
+for i in range(1,101):
     T = i
-    r = T* np.random.rand()
-    theta = np.pi/2 * np.random.rand()
-    temp = 0.5*T*np.pi*count_intersection(y,T,r,theta)
-    simulations.append(temp)
-    distancias.append(T)
-    
+    for j in range(100):
+        r = T* np.random.rand()
+        theta = np.pi/2 * np.random.rand()
+        temp = 0.5*T*np.pi*count_intersection(y,T,r,theta)
+        simulations.append(temp)
+        distancias.append(i)
 plt.scatter(distancias,simulations)
 fname = 'EJ4.png'
 plt.savefig(fname)
+fig = plt.figure()
+fig.clf()
 fname
 """FIN EJERCICIO 4"""
+
+
+
+"""EJERCICIO 5"""
+T = 1  # Distancia entre rectas
+r = 0.09 # posicion inicial (tiene que estar entre 0 y T)
+theta = 0.85 # Angulo
+simulations = []
+distancias = []
+for i in range(1,101):
+    T = i
+    for j in range(100):
+        r = T* np.random.rand()
+        theta = np.pi/2 * np.random.rand()
+        temp = 0.5*T*np.pi*count_intersection(y,T,r,theta+math.pi/2)
+        simulations.append(temp)
+        distancias.append(T)
+    
+plt.scatter(distancias, simulations)
+fname = 'EJ5.png'
+plt.savefig(fname)
+fname
+"""FIN EJERCICIO 5"""
