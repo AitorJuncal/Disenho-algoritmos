@@ -121,7 +121,7 @@ r = 0.09 # posicion inicial (tiene que estar entre 0 y T)
 theta = 0.85 # Angulo
 simulations = []
 distancias = []
-for i in range(1,101):
+for i in range(1,100):
     T = i
     for j in range(100):
         r = T* np.random.rand()
@@ -135,6 +135,11 @@ plt.savefig(fname)
 fig = plt.figure()
 fig.clf()
 fname
+
+media = np.mean(simulations)
+varianza = np.var(simulations)
+#A MAYOR VALOR DE T AUMENTA LA VARIANZA, LO QUE SIGNIFICA QUE LOS DATOS ESTÁN MÁS DISPERSOS Y
+#LOS ESTIMADORES MEDIA MUESTRAL Y LA VARIANZA DE LA POBLACIÓN SON ESTIMADORES INSESGADOS.
 """FIN EJERCICIO 4"""
 
 
@@ -150,12 +155,47 @@ for i in range(1,101):
     for j in range(100):
         r = T* np.random.rand()
         theta = np.pi/2 * np.random.rand()
-        temp = 0.5*T*np.pi*count_intersection(y,T,r,theta+math.pi/2)
+        temp1 = 0.5*T*np.pi*count_intersection(y,T,r,theta+math.pi/2)
+        temp2 = 0.5*T*np.pi*count_intersection(y,T,r,theta+math.pi/2)
+        temp = (temp1 + temp2) / 2 #tomamos la media entre las 2 estimaciones
         simulations.append(temp)
         distancias.append(T)
     
 plt.scatter(distancias, simulations)
 fname = 'EJ5.png'
 plt.savefig(fname)
+fig = plt.figure()
+fig.clf()
 fname
+
+#Este estimador esta basado en la rotación geométrica del ángulo theta en 90 grados. No es insesgado y
+#es preferible al anterior por que en este caso tomamos una segunda medida cuyo ángulo no es aleatoria si
+#no que es una rotación del ángulo anterior. Por lo que si hay correlación entre temp1 y temp2. Y para 
+#mejorar dicha correlación ajustamos una medida común haciendo la media entre las 2 medidas.
 """FIN EJERCICIO 5"""
+
+
+"""EJERCICIO 6"""
+#En este ejercicio la distancia T es fija
+T = 1
+r = 0.09
+theta = 0.85
+simulations = []
+N = 16
+puntos = []
+for i in range(1, N+1):
+    r = T * np.random.rand()
+    theta = np.pi/2 * np.random.rand()
+    temp = 0
+    for j in range(i):
+        temp += count_intersection(y, T, r + (j*np.pi/i), theta + (j*np.pi/i))
+    temp *= 0.5*T*np.pi
+    simulations.append(temp)
+    puntos.append(i)
+plt.scatter(puntos, simulations)
+fname = 'EJ6.png'
+plt.savefig(fname)
+fig = plt.figure()
+fig.clf()
+fname
+"""EJERCICIO 6"""
