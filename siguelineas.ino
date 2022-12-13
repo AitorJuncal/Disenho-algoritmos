@@ -56,14 +56,29 @@ void loop(){
     //gira a la dereha
   }
   else if (irSensorValues[0] == NO_LINEA && irSensorValues[3] == NO_LINEA){
-    //stopMotor();
-	//turnAround();
-	marchaAtras();
-	//forward();
-    //esta fuera dl circuito,nos paramos
+    int num = random(3);
+    if(num == 1) {
+      turnLeft();      
+    }
+    else if(num == 2) {
+     turnRight();      
+    }
+    else {
+      marchaAtras();
+    }      
   } 
 	else {
-		marchaAtras();
+		
+    num = random(3);
+    if(num == 1) {
+      turnLeft();      
+    }
+    else if(num == 2) {
+     turnRight();      
+    }
+    else {
+      marchaAtras();
+    }   
 	}
    
 }
@@ -137,6 +152,12 @@ void turnLeft(){
   delay(QUARTER_BACK_TIME); 
   forward();
 }
+
+
+
+
+
+
 
 
 
