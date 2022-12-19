@@ -40,7 +40,6 @@ void setup(){
 
 void loop(){
   readIRSensor();
-  Serial.println(irSensorValues[0]);
   if(irSensorValues[0] == NO_LINEA && irSensorValues[3] == NO_LINEA && (irSensorValues[1] == LINEA || irSensorValues[2] == LINEA)){ 
    forward();
    //va en linea reta
@@ -52,34 +51,24 @@ void loop(){
   }
   else if ( irSensorValues[3] == LINEA){
     turnRight();
-	
     //gira a la dereha
   }
-  else if (irSensorValues[0] == NO_LINEA && irSensorValues[3] == NO_LINEA){
-    int num = random(3);
-    if(num == 1) {
-      turnLeft();      
+  else {	
+    int num = random(1,4);
+    switch(num) {
+       case 1:
+         turnLeft();
+         break;
+       case 2:
+	 turnRight();
+          break;
+       case 3:
+         marchaAtras();
+         break;
     }
-    else if(num == 2) {
-     turnRight();      
-    }
-    else {
-      marchaAtras();
-    }      
-  } 
-	else {
-		
-    num = random(3);
-    if(num == 1) {
-      turnLeft();      
-    }
-    else if(num == 2) {
-     turnRight();      
-    }
-    else {
-      marchaAtras();
-    }   
-	}
+
+    
+  }
    
 }
 
@@ -152,6 +141,8 @@ void turnLeft(){
   delay(QUARTER_BACK_TIME); 
   forward();
 }
+
+
 
 
 
